@@ -16,19 +16,29 @@ function checkAnswer(){
     console.log(`answer: ${answer}, prediction: ${prediction}`);
 
     if (prediction == answer) {
-        console.log(`Correct ! Score: ${score}`);
         score++;
-        backgroundImages.push(`url('images/background1.svg')`);
-        document.body.style.backgroundImage = backgroundImages;
+        console.log(`Correct ! Score: ${score}`);
+        if (score <= 6){
+            backgroundImages.push(`url('images/background${score}.svg')`);
+            document.body.style.backgroundImage = backgroundImages;
+        }
+        else {
+            alert('Well done ! Your math garden is in full bloom ! End of Game, start again.')
+            score = 0
+            backgroundImages = []
+            document.body.style.backgroundImage = backgroundImages;
+        }
     }
     else {
+        if (score > 0) {
+            score--;
+        }        
+        alert(`Oops wrong ! Score: ${score}`);
+        setTimeout(function (){ 
+            backgroundImages.pop();
+            document.body.style.backgroundImage = backgroundImages;
+        }, 500);
         console.log(`Wrong ! Score: ${score}`);
-        score--;
-        backgroundImages.push(`url('images/background1.svg')`);
-        document.body.style.backgroundImage = backgroundImages;
     }
-    if (score < 0) {
-        score = 0;
-    }
-
+    
 }
